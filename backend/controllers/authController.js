@@ -23,15 +23,29 @@ async function signup(req, res) {
 	try {
 		const { name, email, password } = req.body || {};
 
+		// Validate all fields are provided
 		if (!name || !email || !password) {
 			return res.status(400).json({ error: "Name, email, and password are required" });
 		}
 
-		const existingUser = await User.findOne({ email });
-		if (existingUser) {
-			return res.status(409).json({ error: "User already exists" });
+		// Validate email format
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(email)) {
+			return res.status(400).json({ error: "Invalid email format" });
 		}
 
+		// Validate password minimum length
+		if (password.length < 6) {
+			return res.status(400).json({ error: "Password must be at least 6 characters long" });
+		}
+
+		// Check if user already exists
+		const existingUser = await User.findOne({ email });
+		if (existingUser) {
+			return res.status(409).json({ error: "Email already registered" });
+		}
+
+		// Hash password and create user
 		const hashedPassword = await bcrypt.hash(password, 10);
 		const user = await User.create({
 			name,
@@ -39,9 +53,12 @@ async function signup(req, res) {
 			password: hashedPassword,
 		});
 
+		// Generate token and return response
 		const token = generateToken(user._id.toString());
 
 		return res.status(201).json({
+			success: true,
+			message: "User created successfully",
 			token,
 			user: buildUserResponse(user),
 		});
@@ -72,6 +89,8 @@ async function login(req, res) {
 		const token = generateToken(user._id.toString());
 
 		return res.status(200).json({
+			success: true,
+			message: "Login successful",
 			token,
 			user: buildUserResponse(user),
 		});

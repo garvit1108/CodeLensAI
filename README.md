@@ -1,150 +1,59 @@
-# AI Code Reviewer (MERN Stack)
+# CodeLens AI
 
-AI Code Reviewer is a full-stack web application that helps developers review source code with a combination of AI feedback and rule-based static analysis.
+Hybrid AI + rule-based code review with precise, line-level insights and actionable fixes.
 
-It provides structured review output (issues, fixes, and score), detects complexity and maintainability risks, and secures access with JWT-based authentication.
+---
 
-## Overview
+## 🚀 What it does
 
-This project combines:
+CodeLens AI is an intelligent code review tool that analyzes your code and provides line-by-line issues, explanations, and concrete fixes.
 
-- **AI-powered analysis** using OpenAI for contextual code review.
-- **Static analysis** using parser-based logic (no AI) for complexity and structure checks.
-- **Authentication** using JWT for protected review endpoints.
-- **MongoDB persistence** through Mongoose for storing application data.
+It combines deterministic rule-based checks with AI to ensure reliable and actionable feedback instead of generic suggestions.
 
-The application is organized into:
+---
 
-- **Frontend**: Next.js + React UI with Monaco Editor for code input.
-- **Backend**: Express API for auth, analysis, and data handling.
+## 🔥 Features
 
-## Tech Stack
+- Hybrid analysis (rule-based + AI)
+- Line-level issue detection with editor highlighting
+- Actionable fixes (before/after code)
+- Refactored code with side-by-side comparison
+- Learning mode for guided hints
+- Follow-up Q&A based on your code and analysis
+- Confidence-based issue prioritization
+- Graceful fallback when AI is unavailable
 
-### Frontend
+---
 
-- Next.js
-- React
-- Tailwind CSS
-- Monaco Editor (`@monaco-editor/react`)
+## ⚙️ How it works
 
-### Backend
+1. User submits code
+2. Rule engine checks basic issues (syntax, null access, loops, etc.)
+3. AI analyzes deeper logic and improvements
+4. Results are normalized into a structured format
+5. UI displays issues, suggestions, and refactored code
 
-- Node.js
-- Express
-- Mongoose
-- JWT (`jsonwebtoken`)
-- Bcrypt (`bcryptjs`)
-- OpenAI SDK
-- Tree-sitter (`web-tree-sitter`, `tree-sitter-javascript`)
+---
 
-### Database
+## 🛠️ Tech Stack
 
-- MongoDB Atlas (recommended)
+- Frontend: Next.js, Tailwind CSS, Monaco Editor
+- Backend: Express.js
+- Database: MongoDB
+- AI: LLM-based analysis (with fallback handling)
 
-## Features
+---
 
-- **AI-based code analysis (OpenAI)**
-  - Returns structured issues with problem, impact, and fix details.
-  - Includes practical suggestions and review scoring.
-
-- **Static analysis (complexity detection)**
-  - Nested loop detection with complexity estimation (`O(n^2)`).
-  - Function length checks (> 30 lines).
-  - Function parameter count checks (> 4 parameters).
-  - Excessive nesting depth checks (> 3 levels).
-
-- **JWT authentication**
-  - User signup and login.
-  - Secure token generation and verification.
-  - Protected analysis routes for authenticated users.
-
-- **MongoDB storage**
-  - User account storage with hashed passwords.
-  - Database-backed application data via Mongoose.
-
-## Setup Steps
-
-### 1. Clone the repository
+## ▶️ Setup
 
 ```bash
-git clone <your-repo-url>
-cd project
-```
-
-### 2. Install dependencies
-
-Install backend dependencies:
-
-```bash
-cd backend
-npm install
-```
-
-Install frontend dependencies:
-
-```bash
-cd ../frontend
-npm install
-```
-
-### 3. Configure environment variables
-
-Create or update `backend/.env`:
-
-```env
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_strong_jwt_secret
-OPENAI_API_KEY=your_openai_api_key
-```
-
-Notes:
-
-- Use credentials with access to your MongoDB cluster/database.
-- `JWT_SECRET` should be long and random in production.
-- Keep `.env` out of version control.
-
-### 4. Run the backend
-
-```bash
-cd backend
-npm start
-```
-
-Backend runs on:
-
-- `http://localhost:5000`
-
-### 5. Run the frontend
-
-Open a second terminal:
-
-```bash
+# frontend
 cd frontend
+npm install
+npm run dev
+
+# backend
+cd backend
+npm install
 npm run dev
 ```
-
-Frontend runs on:
-
-- `http://localhost:3000`
-
-## Core API Endpoints
-
-- `POST /api/auth/signup` - Create account and return JWT token.
-- `POST /api/auth/login` - Authenticate and return JWT token.
-- `POST /api/analyze` - Protected route for code analysis.
-
-## Authentication Flow
-
-1. Signup or login to receive a JWT token.
-2. Send token in request headers for protected routes:
-
-```http
-Authorization: Bearer <token>
-```
-
-## Future Improvements
-
-- Add refresh tokens and logout invalidation.
-- Add role-based access control.
-- Add test coverage (unit/integration).
-- Add review history dashboard and filtering.
