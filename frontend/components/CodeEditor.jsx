@@ -1,6 +1,7 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
 import { buildApiUrl } from "../utils/api";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
@@ -51,7 +52,6 @@ function buildDiffRows(originalCode, refactoredCode) {
 }
 
 export default function CodeEditor() {
-	const router = useRouter();
 	const editorRef = useRef(null);
 	const monacoRef = useRef(null);
 	const decorationIdsRef = useRef([]);
@@ -79,7 +79,9 @@ export default function CodeEditor() {
 
 	function handleLogout() {
 		localStorage.removeItem("token");
-		router.push("/login");
+		if (typeof window !== "undefined") {
+			window.location.assign("/login");
+		}
 	}
 
 	async function handleAnalyze() {
@@ -120,7 +122,9 @@ export default function CodeEditor() {
 				if (response.status === 401) {
 					localStorage.removeItem("token");
 					setError("Your session is invalid or expired. Please log in again.");
-					router.push("/login");
+					if (typeof window !== "undefined") {
+						window.location.assign("/login");
+					}
 					return;
 				}
 

@@ -36,9 +36,9 @@ export default function SignupPage() {
         throw new Error("Signup failed. Token was not returned.");
       }
 
-      // Store token and redirect to dashboard
+      // Store token and redirect to main UI
       setToken(data.token);
-      router.push("/dashboard");
+      router.push("/");
     } catch (err) {
       setError(err.message || "Signup failed. Please try again.");
     } finally {

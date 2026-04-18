@@ -1,8 +1,10 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import CodeEditor from "../components/CodeEditor";
 
-export default function HomePage() {
+export default function Home() {
 	const router = useRouter();
 	const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 

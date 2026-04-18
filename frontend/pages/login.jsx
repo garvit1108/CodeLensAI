@@ -41,8 +41,8 @@ export default function LoginPage() {
         localStorage.setItem("user", JSON.stringify(data.user));
       }
 
-      // Redirect to dashboard
-      router.push("/dashboard");
+      // Redirect to main UI
+      router.push("/");
     } catch (err) {
       setError(err.message || "Login failed. Please try again.");
     } finally {
