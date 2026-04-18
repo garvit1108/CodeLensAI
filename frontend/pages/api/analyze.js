@@ -1,3 +1,5 @@
+import { buildApiUrl } from "../../utils/api";
+
 export default async function handler(req, res) {
 	if (req.method !== "POST") {
 		res.setHeader("Allow", ["POST"]);
@@ -13,7 +15,7 @@ export default async function handler(req, res) {
 	}
 
 	try {
-		const upstream = await fetch("http://localhost:5000/api/analyze", {
+		const upstream = await fetch(buildApiUrl("/api/analyze"), {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

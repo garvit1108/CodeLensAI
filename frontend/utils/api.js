@@ -1,6 +1,22 @@
 import Router from "next/router";
 import { removeToken } from "./auth";
 
+export function getApiBaseUrl() {
+	const apiUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
+	if (!apiUrl) {
+		throw new Error("NEXT_PUBLIC_API_URL is not configured.");
+	}
+
+	return apiUrl.replace(/\/$/, "");
+}
+
+export function buildApiUrl(path) {
+	const baseUrl = getApiBaseUrl();
+	const rawPath = String(path || "");
+	const normalizedPath = rawPath.startsWith("/") ? rawPath : `/${rawPath}`;
+	return `${baseUrl}${normalizedPath}`;
+}
+
 /**
  * Makes an authenticated API request with JWT token
  * Automatically handles 401 responses by clearing token and redirecting to login

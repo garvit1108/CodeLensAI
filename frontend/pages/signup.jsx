@@ -2,6 +2,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { setToken } from "../utils/auth";
+import { buildApiUrl } from "../utils/api";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function SignupPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/signup", {
+      const response = await fetch(buildApiUrl("/api/auth/signup"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

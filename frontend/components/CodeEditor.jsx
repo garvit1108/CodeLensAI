@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import { buildApiUrl } from "../utils/api";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
@@ -98,7 +99,7 @@ export default function CodeEditor() {
 				throw new Error("You must log in first to analyze code.");
 			}
 
-			const response = await fetch("http://localhost:5000/api/analyze", {
+			const response = await fetch(buildApiUrl("/api/analyze"), {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
