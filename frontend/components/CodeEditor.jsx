@@ -445,18 +445,18 @@ export default function CodeEditor() {
 	const diffRows = buildDiffRows(code, analysis.refactored_code);
 
 	return (
-		<div className="min-h-screen bg-[radial-gradient(circle_at_10%_10%,#1e293b_0%,#0f172a_40%,#020617_100%)] px-4 py-6 sm:px-6 lg:px-8">
+		<div className="min-h-screen bg-[radial-gradient(circle_at_10%_10%,#1e293b_0%,#0f172a_40%,#020617_100%)] px-3 py-4 sm:px-6 lg:px-8">
 			<div className="mx-auto flex w-full max-w-7xl flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
 				<div className="space-y-1">
-					<h1 className="text-xl font-bold tracking-tight text-slate-100 sm:text-2xl">CodeLens AI</h1>
-					<p className="mt-1 text-xs text-slate-400">Understand. Fix. Improve your code with intelligent review.</p>
+					<h1 className="text-2xl font-bold tracking-tight text-slate-100 sm:text-2xl">CodeLens AI</h1>
+					<p className="mt-1 text-sm leading-6 text-slate-400">Understand. Fix. Improve your code with intelligent review.</p>
 				</div>
-				<div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-start lg:justify-end">
+				<div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:justify-start lg:justify-end">
 					<div className="inline-flex flex-wrap items-center rounded-lg border border-slate-700 bg-slate-900/90 p-1">
 						<button
 							type="button"
 							onClick={() => setMode("review")}
-							className={`rounded-md px-3 py-1.5 text-xs font-semibold transition ${
+							className={`rounded-md px-3 py-1.5 text-sm font-semibold transition ${
 								mode === "review"
 									? "bg-blue-600 text-white"
 									: "bg-transparent text-slate-300 hover:bg-slate-800"
@@ -496,41 +496,41 @@ export default function CodeEditor() {
 			</div>
 
 			<div className="mx-auto mt-4 flex w-full max-w-7xl flex-col gap-4">
-				<div className="grid w-full grid-cols-1 items-start gap-6 lg:h-[78vh] lg:grid-cols-12 lg:items-stretch lg:overflow-hidden">
+				<div className="grid w-full grid-cols-1 items-start gap-4 lg:h-[78vh] lg:grid-cols-12 lg:items-stretch lg:gap-6 lg:overflow-hidden">
 				<section
-					className={`relative flex min-h-[420px] flex-col overflow-hidden rounded-2xl p-px transition-all duration-300 lg:col-span-7 lg:h-full lg:min-h-0 ${
+					className={`relative flex min-h-[460px] flex-col overflow-hidden rounded-2xl p-px transition-all duration-300 lg:col-span-7 lg:h-full lg:min-h-0 ${
 						isEditorFocused
 							? "bg-[linear-gradient(135deg,rgba(56,189,248,0.9),rgba(59,130,246,0.35),rgba(139,92,246,0.45))] shadow-[0_0_0_1px_rgba(56,189,248,0.25),0_24px_70px_rgba(2,6,23,0.5),0_0_36px_rgba(56,189,248,0.18)]"
 							: "bg-[linear-gradient(135deg,rgba(56,189,248,0.3),rgba(59,130,246,0.12),rgba(148,163,184,0.08))] shadow-[0_24px_70px_rgba(2,6,23,0.42)]"
 					}`}
 				>
 					<div className={`flex h-full min-h-0 flex-col overflow-hidden rounded-[15px] border border-slate-800/80 bg-slate-900/90 transition-all duration-300 ${isEditorFocused ? "ring-1 ring-sky-400/30" : ""}`}>
-						<div className="flex flex-col gap-3 border-b border-slate-800/80 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+						<div className="flex flex-col gap-3 border-b border-slate-800/80 px-3 py-3 sm:px-4 sm:flex-row sm:items-center sm:justify-between">
 							<div>
-								<span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Editor</span>
-								<p className="mt-1 text-sm leading-6 text-slate-500">Paste code, format it, and run an analysis from a real editor shell.</p>
+								<span className="text-sm font-semibold uppercase tracking-wider text-slate-400">Editor</span>
+								<p className="mt-1 text-sm leading-6 text-slate-500 sm:text-sm">Paste code, format it, and run an analysis from a real editor shell.</p>
 							</div>
 							<div className="flex flex-wrap items-center gap-2">
-								<span className="rounded-full border border-slate-700 bg-slate-950/80 px-3 py-1 text-xs font-medium text-slate-300">
+								<span className="rounded-full border border-slate-700 bg-slate-950/80 px-3 py-1 text-sm font-medium text-slate-300">
 									{lineCount} line{lineCount === 1 ? "" : "s"}
 								</span>
 								<button
 									type="button"
-									className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-slate-900"
+									className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-1.5 text-sm font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-slate-900"
 									onClick={handleClearCode}
 								>
 									Clear
 								</button>
 								<button
 									type="button"
-									className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-slate-900"
+									className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-1.5 text-sm font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-slate-900"
 									onClick={handlePasteCode}
 								>
 									Paste
 								</button>
 								<button
 									type="button"
-									className="rounded-lg border border-sky-500/30 bg-sky-500/10 px-3 py-1.5 text-xs font-semibold text-sky-200 transition hover:border-sky-400/50 hover:bg-sky-500/15"
+									className="rounded-lg border border-sky-500/30 bg-sky-500/10 px-3 py-1.5 text-sm font-semibold text-sky-200 transition hover:border-sky-400/50 hover:bg-sky-500/15"
 									onClick={handleFormatCode}
 								>
 									Format
@@ -576,7 +576,7 @@ export default function CodeEditor() {
 					<aside className="flex min-h-0 flex-col gap-4 overflow-hidden lg:col-span-5 lg:h-full lg:min-h-0">
 					<div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 shadow-xl">
 						<div className="mb-3 flex items-center justify-between">
-							<h2 className="text-sm font-semibold uppercase tracking-wider text-slate-300">Complexity</h2>
+							<h2 className="text-base font-semibold uppercase tracking-wider text-slate-300">Complexity</h2>
 							<span
 								className={`rounded-full px-3 py-1 text-xs font-bold ${
 									isComplexityHigh
@@ -587,19 +587,19 @@ export default function CodeEditor() {
 								{complexityValue}
 							</span>
 						</div>
-						<p className="text-xs text-slate-400">
+						<p className="text-sm leading-6 text-slate-400">
 							Detected from structural analysis. Nested loops push complexity toward quadratic growth.
 						</p>
 					</div>
 
 					{error ? (
-						<div className="rounded-2xl border border-rose-500/40 bg-rose-950/40 p-4 text-sm text-rose-200">
+						<div className="rounded-2xl border border-rose-500/40 bg-rose-950/40 p-4 text-sm leading-6 text-rose-200">
 							{error}
 						</div>
 					) : null}
 
 					{!error && analysis?.degraded ? (
-						<div className="rounded-2xl border border-amber-500/25 bg-amber-950/20 px-4 py-2 text-xs text-amber-200">
+						<div className="rounded-2xl border border-amber-500/25 bg-amber-950/20 px-4 py-2 text-sm text-amber-200">
 							Partial analysis (AI unavailable)
 						</div>
 					) : null}
@@ -625,7 +625,7 @@ export default function CodeEditor() {
 				</div>
 
 				<div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 shadow-xl">
-					<h3 className="mb-2 text-sm font-semibold uppercase tracking-wider text-slate-300">Refactored Code</h3>
+					<h3 className="mb-2 text-base font-semibold uppercase tracking-wider text-slate-300">Refactored Code</h3>
 					{analysis.refactored_code ? (
 						<>
 							<div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -658,7 +658,7 @@ export default function CodeEditor() {
 				</div>
 
 				<div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 shadow-xl">
-					<h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-300">Follow-up Question</h3>
+					<h3 className="mb-3 text-base font-semibold uppercase tracking-wider text-slate-300">Follow-up Question</h3>
 					<form onSubmit={handleFollowUpQuestion} className="flex flex-col gap-2 sm:flex-row">
 						<input
 							type="text"
