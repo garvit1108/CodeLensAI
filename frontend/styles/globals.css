@@ -125,6 +125,13 @@ body {
   text-decoration: none;
 }
 
+@media (pointer: coarse) {
+  .monaco-editor,
+  .monaco-editor .overflow-guard {
+    touch-action: pan-y pan-x;
+  }
+}
+
 .dash-card-fade {
   animation: dash-fade-up 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }

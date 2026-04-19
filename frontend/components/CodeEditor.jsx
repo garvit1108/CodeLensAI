@@ -76,6 +76,7 @@ export default function CodeEditor() {
 	const [qaError, setQaError] = useState("");
 	const [latestQa, setLatestQa] = useState(null);
 	const [activeIssueLine, setActiveIssueLine] = useState(null);
+	const [isCompactViewport, setIsCompactViewport] = useState(false);
 
 	function handleLogout() {
 		localStorage.removeItem("token");
@@ -228,6 +229,17 @@ export default function CodeEditor() {
 		});
 		editor.focus();
 	}
+
+	useEffect(() => {
+		function updateViewportFlags() {
+			setIsCompactViewport(window.innerWidth < 640);
+		}
+
+		updateViewportFlags();
+		window.addEventListener("resize", updateViewportFlags);
+
+		return () => window.removeEventListener("resize", updateViewportFlags);
+	}, []);
 
 	async function handlePasteCode() {
 		try {
@@ -443,6 +455,8 @@ export default function CodeEditor() {
 	const isComplexityHigh = complexityValue.includes("n^2") || complexityValue.includes("n2");
 	const lineCount = code ? code.split(/\r?\n/).length : 1;
 	const diffRows = buildDiffRows(code, analysis.refactored_code);
+	const editorFontSize = isCompactViewport ? 16 : 14;
+	const editorLineHeight = isCompactViewport ? 24 : 22;
 
 	return (
 		<div className="min-h-screen bg-[radial-gradient(circle_at_10%_10%,#1e293b_0%,#0f172a_40%,#020617_100%)] px-3 py-4 sm:px-6 lg:px-8">
@@ -537,7 +551,7 @@ export default function CodeEditor() {
 								</button>
 							</div>
 						</div>
-						<div className="flex-1 min-h-[320px] overflow-auto bg-[#0D1117] dash-smooth-scroll sm:min-h-[420px] lg:min-h-[550px] lg:max-h-[650px]">
+						<div className="flex-1 min-h-[320px] overflow-hidden bg-[#0D1117] dash-smooth-scroll sm:min-h-[420px] lg:min-h-[550px] lg:max-h-[650px]">
 							<MonacoEditor
 								height="100%"
 								defaultLanguage="plaintext"
@@ -552,8 +566,8 @@ export default function CodeEditor() {
 									minimap: { enabled: false },
 									fontFamily: "'Fira Code', Consolas, 'Courier New', monospace",
 									fontLigatures: true,
-									fontSize: 14,
-									lineHeight: 22,
+									fontSize: editorFontSize,
+									lineHeight: editorLineHeight,
 									hover: { enabled: true },
 									renderValidationDecorations: "on",
 									scrollBeyondLastLine: false,
@@ -605,7 +619,7 @@ export default function CodeEditor() {
 					) : null}
 
 					<div className="flex min-h-0 flex-1 flex-col gap-4 overflow-visible lg:overflow-hidden">
-						<div className="min-h-0 overflow-auto">
+						<div className="max-h-[38vh] min-h-0 overflow-auto sm:max-h-[320px] lg:max-h-none">
 							<HighlightList
 								title={mode === "learning" ? "Learning Hints" : "Issues"}
 								items={analysis.issues}
@@ -613,7 +627,7 @@ export default function CodeEditor() {
 								onItemClick={handleNavigateToIssue}
 							/>
 						</div>
-						<div className="min-h-0 flex-1 overflow-auto">
+						<div className="max-h-[38vh] min-h-0 flex-1 overflow-auto sm:max-h-[320px] lg:max-h-none">
 							<HighlightList
 								title={mode === "learning" ? "Guided Steps" : "Suggestions"}
 								items={analysis.suggestions}
