@@ -465,49 +465,49 @@ export default function CodeEditor() {
 					<h1 className="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">CodeLens AI</h1>
 					<p className="mt-1 text-base leading-7 text-slate-400 sm:text-sm sm:leading-6">Understand. Fix. Improve your code with intelligent review.</p>
 				</div>
-				<div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:justify-start lg:justify-end">
-					<div className="flex w-full flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-900/90 p-1 sm:inline-flex sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+				<div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:justify-start lg:justify-end">
+					<div className="inline-flex w-full items-center overflow-hidden rounded-lg border border-slate-700 bg-slate-900/90 p-1 sm:w-auto sm:flex-wrap">
 						<button
 							type="button"
 							onClick={() => setMode("review")}
-							className={`rounded-md px-4 py-2 text-base font-semibold transition sm:px-3 sm:py-1.5 sm:text-sm ${
+							className={`flex-1 rounded-md px-3 py-1.5 text-sm font-semibold transition sm:flex-none sm:px-3 sm:py-1.5 sm:text-sm ${
 								mode === "review"
 									? "bg-blue-600 text-white"
 									: "bg-transparent text-slate-300 hover:bg-slate-800"
 							}`}
-							>
-							<span className="sm:hidden">Review</span>
-							<span className="hidden sm:inline">Review</span>
+						>
+							Review
 						</button>
 						<button
 							type="button"
 							onClick={() => setMode("learning")}
-							className={`rounded-md px-4 py-2 text-base font-semibold transition sm:px-3 sm:py-1.5 sm:text-sm ${
+							className={`flex-1 rounded-md px-3 py-1.5 text-sm font-semibold transition sm:flex-none sm:px-3 sm:py-1.5 sm:text-sm ${
 								mode === "learning"
 									? "bg-blue-600 text-white"
 									: "bg-transparent text-slate-300 hover:bg-slate-800"
 							}`}
-							>
-							<span className="sm:hidden">Learning</span>
-							<span className="hidden sm:inline">Learning</span>
+						>
+							Learning
 						</button>
 					</div>
-					<button
-						type="button"
-						className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-3 text-base font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:justify-start sm:px-4 sm:py-2 sm:text-sm"
-						onClick={handleAnalyze}
-						disabled={isLoading}
-					>
-						{isLoading ? <Spinner /> : null}
-						{isLoading ? "Analyzing..." : "Analyze Code"}
-					</button>
-					<button
-						type="button"
-						className="inline-flex w-full items-center justify-center rounded-lg border border-slate-600 bg-slate-800 px-5 py-3 text-base font-semibold text-slate-100 transition hover:bg-slate-700 sm:w-auto sm:justify-start sm:px-4 sm:py-2 sm:text-sm"
-						onClick={handleLogout}
-					>
-						Logout
-					</button>
+					<div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:items-center sm:gap-2">
+						<button
+							type="button"
+							className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:justify-start sm:px-4 sm:py-2 sm:text-sm"
+							onClick={handleAnalyze}
+							disabled={isLoading}
+						>
+							{isLoading ? <Spinner /> : null}
+							{isLoading ? "Analyzing..." : "Analyze Code"}
+						</button>
+						<button
+							type="button"
+							className="inline-flex w-full items-center justify-center rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-sm font-semibold text-slate-100 transition hover:bg-slate-700 sm:w-auto sm:justify-start sm:px-4 sm:py-2 sm:text-sm"
+							onClick={handleLogout}
+						>
+							Logout
+						</button>
+					</div>
 				</div>
 			</div>
 
@@ -623,7 +623,7 @@ export default function CodeEditor() {
 					) : null}
 
 					<div className="flex min-h-0 flex-1 flex-col gap-4 overflow-visible lg:overflow-hidden sm:gap-4">
-						<div className="max-h-[36vh] min-h-0 overflow-auto sm:max-h-[320px] lg:max-h-none">
+						<div className="h-[36vh] min-h-[220px] max-h-[36vh] overflow-hidden sm:h-[320px] sm:max-h-[320px] lg:h-auto lg:max-h-none">
 							<HighlightList
 								title={mode === "learning" ? "Learning Hints" : "Issues"}
 								items={analysis.issues}
@@ -631,7 +631,7 @@ export default function CodeEditor() {
 								onItemClick={handleNavigateToIssue}
 							/>
 						</div>
-						<div className="max-h-[36vh] min-h-0 flex-1 overflow-auto sm:max-h-[320px] lg:max-h-none">
+						<div className="h-[36vh] min-h-[220px] max-h-[36vh] overflow-hidden sm:h-[320px] sm:max-h-[320px] lg:h-auto lg:max-h-none">
 							<HighlightList
 								title={mode === "learning" ? "Guided Steps" : "Suggestions"}
 								items={analysis.suggestions}
@@ -837,7 +837,7 @@ function HighlightList({ title, items, variant, onItemClick }) {
 	}
 
 	return (
-		<div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 p-4 shadow-xl">
+		<div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 p-4 shadow-xl">
 			<h3 className="mb-2 text-sm font-semibold uppercase tracking-wider text-slate-300">{title}</h3>
 			<div className="flex-1 overflow-hidden">
 				<div className={`h-full overflow-y-auto overflow-x-hidden ${isIssueVariant ? "pr-1" : "pr-2"} dash-smooth-scroll dash-touch-scroll`}>
