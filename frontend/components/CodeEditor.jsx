@@ -459,40 +459,42 @@ export default function CodeEditor() {
 	const editorLineHeight = isCompactViewport ? 26 : 22;
 
 	return (
-		<div className="min-h-screen bg-[radial-gradient(circle_at_10%_10%,#1e293b_0%,#0f172a_40%,#020617_100%)] px-3 py-4 sm:px-6 lg:px-8">
+		<div className="min-h-screen bg-[radial-gradient(circle_at_10%_10%,#1e293b_0%,#0f172a_40%,#020617_100%)] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
 			<div className="mx-auto flex w-full max-w-7xl flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
 				<div className="space-y-1">
-						<h1 className="text-2xl font-bold tracking-tight text-slate-100 sm:text-2xl">CodeLens AI</h1>
-					<p className="mt-1 text-sm leading-6 text-slate-400">Understand. Fix. Improve your code with intelligent review.</p>
+					<h1 className="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">CodeLens AI</h1>
+					<p className="mt-1 text-base leading-7 text-slate-400 sm:text-sm sm:leading-6">Understand. Fix. Improve your code with intelligent review.</p>
 				</div>
-					<div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:justify-start lg:justify-end">
-					<div className="inline-flex flex-wrap items-center rounded-lg border border-slate-700 bg-slate-900/90 p-1">
+				<div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:justify-start lg:justify-end">
+					<div className="flex w-full flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-900/90 p-1 sm:inline-flex sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
 						<button
 							type="button"
 							onClick={() => setMode("review")}
-								className={`rounded-md px-2.5 py-1.5 text-sm font-semibold transition sm:px-3 ${
+							className={`rounded-md px-4 py-2 text-base font-semibold transition sm:px-3 sm:py-1.5 sm:text-sm ${
 								mode === "review"
 									? "bg-blue-600 text-white"
 									: "bg-transparent text-slate-300 hover:bg-slate-800"
 							}`}
-						>
-							Review
+							>
+							<span className="sm:hidden">Review</span>
+							<span className="hidden sm:inline">Review</span>
 						</button>
 						<button
 							type="button"
 							onClick={() => setMode("learning")}
-							className={`rounded-md px-2.5 py-1.5 text-xs font-semibold transition sm:px-3 ${
+							className={`rounded-md px-4 py-2 text-base font-semibold transition sm:px-3 sm:py-1.5 sm:text-sm ${
 								mode === "learning"
 									? "bg-blue-600 text-white"
 									: "bg-transparent text-slate-300 hover:bg-slate-800"
 							}`}
-						>
-							Learning
+							>
+							<span className="sm:hidden">Learning</span>
+							<span className="hidden sm:inline">Learning</span>
 						</button>
 					</div>
 					<button
 						type="button"
-						className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-70 sm:justify-start"
+						className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-3 text-base font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:justify-start sm:px-4 sm:py-2 sm:text-sm"
 						onClick={handleAnalyze}
 						disabled={isLoading}
 					>
@@ -501,7 +503,7 @@ export default function CodeEditor() {
 					</button>
 					<button
 						type="button"
-						className="inline-flex items-center justify-center rounded-lg border border-slate-600 bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:bg-slate-700 sm:justify-start"
+						className="inline-flex w-full items-center justify-center rounded-lg border border-slate-600 bg-slate-800 px-5 py-3 text-base font-semibold text-slate-100 transition hover:bg-slate-700 sm:w-auto sm:justify-start sm:px-4 sm:py-2 sm:text-sm"
 						onClick={handleLogout}
 					>
 						Logout
@@ -509,8 +511,8 @@ export default function CodeEditor() {
 				</div>
 			</div>
 
-			<div className="mx-auto mt-4 flex w-full max-w-7xl flex-col gap-3 sm:gap-4">
-				<div className="grid w-full grid-cols-1 items-start gap-3 lg:h-[78vh] lg:grid-cols-12 lg:items-stretch lg:gap-6 lg:overflow-hidden">
+			<div className="mx-auto mt-4 flex w-full max-w-7xl flex-col gap-4 sm:gap-5">
+				<div className="grid w-full grid-cols-1 items-start gap-4 lg:h-[78vh] lg:grid-cols-12 lg:items-stretch lg:gap-6 lg:overflow-hidden">
 				<section
 					className={`relative flex min-h-[460px] flex-col overflow-hidden rounded-2xl p-px transition-all duration-300 lg:col-span-7 lg:h-full lg:min-h-0 ${
 						isEditorFocused
@@ -519,39 +521,39 @@ export default function CodeEditor() {
 					}`}
 				>
 					<div className={`flex h-full min-h-0 flex-col overflow-hidden rounded-[15px] border border-slate-800/80 bg-slate-900/90 transition-all duration-300 ${isEditorFocused ? "ring-1 ring-sky-400/30" : ""}`}>
-						<div className="flex flex-col gap-2 border-b border-slate-800/80 px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4">
+						<div className="flex flex-col gap-3 border-b border-slate-800/80 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-4 sm:py-3">
 							<div>
-								<span className="text-sm font-semibold uppercase tracking-wider text-slate-400">Editor</span>
-								<p className="mt-1 text-xs leading-5 text-slate-500 sm:text-sm sm:leading-6">Paste code, format it, and run an analysis from a real editor shell.</p>
+								<span className="text-base font-semibold uppercase tracking-wider text-slate-400 sm:text-sm">Editor</span>
+								<p className="mt-1 text-sm leading-6 text-slate-500 sm:text-sm sm:leading-6">Paste code, format it, and run an analysis from a real editor shell.</p>
 							</div>
 							<div className="flex flex-wrap items-center gap-2">
-								<span className="rounded-full border border-slate-700 bg-slate-950/80 px-2.5 py-1 text-xs font-medium text-slate-300 sm:px-3 sm:text-sm">
+								<span className="rounded-full border border-slate-700 bg-slate-950/80 px-3 py-1.5 text-sm font-medium text-slate-300 sm:px-3 sm:py-1 sm:text-sm">
 									{lineCount} line{lineCount === 1 ? "" : "s"}
 								</span>
 								<button
 									type="button"
-									className="rounded-lg border border-slate-700 bg-slate-950/80 px-2.5 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 sm:px-3 sm:text-sm"
+									className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 sm:px-3 sm:py-1.5 sm:text-sm"
 									onClick={handleClearCode}
 								>
 									Clear
 								</button>
 								<button
 									type="button"
-									className="rounded-lg border border-slate-700 bg-slate-950/80 px-2.5 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 sm:px-3 sm:text-sm"
+									className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 sm:px-3 sm:py-1.5 sm:text-sm"
 									onClick={handlePasteCode}
 								>
 									Paste
 								</button>
 								<button
 									type="button"
-									className="rounded-lg border border-sky-500/30 bg-sky-500/10 px-2.5 py-1.5 text-xs font-semibold text-sky-200 transition hover:border-sky-400/50 hover:bg-sky-500/15 sm:px-3 sm:text-sm"
+									className="rounded-lg border border-sky-500/30 bg-sky-500/10 px-3 py-2 text-sm font-semibold text-sky-200 transition hover:border-sky-400/50 hover:bg-sky-500/15 sm:px-3 sm:py-1.5 sm:text-sm"
 									onClick={handleFormatCode}
 								>
 									Format
 								</button>
 							</div>
 						</div>
-						<div className="h-[62svh] min-h-[340px] overflow-hidden bg-[#0D1117] dash-smooth-scroll sm:h-[420px] lg:h-full lg:min-h-[550px] lg:max-h-[650px]">
+						<div className="h-[70svh] min-h-[380px] overflow-hidden bg-[#0D1117] dash-smooth-scroll sm:h-[460px] lg:h-full lg:min-h-[550px] lg:max-h-[650px]">
 							<MonacoEditor
 								height="100%"
 								defaultLanguage="plaintext"
@@ -620,8 +622,8 @@ export default function CodeEditor() {
 						</div>
 					) : null}
 
-					<div className="flex min-h-0 flex-1 flex-col gap-3 overflow-visible lg:overflow-hidden sm:gap-4">
-						<div className="max-h-[34vh] min-h-0 overflow-auto sm:max-h-[320px] lg:max-h-none">
+					<div className="flex min-h-0 flex-1 flex-col gap-4 overflow-visible lg:overflow-hidden sm:gap-4">
+						<div className="max-h-[36vh] min-h-0 overflow-auto sm:max-h-[320px] lg:max-h-none">
 							<HighlightList
 								title={mode === "learning" ? "Learning Hints" : "Issues"}
 								items={analysis.issues}
@@ -629,7 +631,7 @@ export default function CodeEditor() {
 								onItemClick={handleNavigateToIssue}
 							/>
 						</div>
-						<div className="max-h-[34vh] min-h-0 flex-1 overflow-auto sm:max-h-[320px] lg:max-h-none">
+						<div className="max-h-[36vh] min-h-0 flex-1 overflow-auto sm:max-h-[320px] lg:max-h-none">
 							<HighlightList
 								title={mode === "learning" ? "Guided Steps" : "Suggestions"}
 								items={analysis.suggestions}
@@ -838,7 +840,7 @@ function HighlightList({ title, items, variant, onItemClick }) {
 		<div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 p-4 shadow-xl">
 			<h3 className="mb-2 text-sm font-semibold uppercase tracking-wider text-slate-300">{title}</h3>
 			<div className="flex-1 overflow-hidden">
-				<div className={`h-full overflow-y-scroll overflow-x-hidden ${isIssueVariant ? "pr-1" : "pr-2"} dash-smooth-scroll`}>
+				<div className={`h-full overflow-y-auto overflow-x-hidden ${isIssueVariant ? "pr-1" : "pr-2"} dash-smooth-scroll dash-touch-scroll`}>
 					{displayItems.length > 0 ? (
 						<ul className={isIssueVariant ? "space-y-3" : "space-y-4"}>
 							{displayItems.map((item, index) => (
